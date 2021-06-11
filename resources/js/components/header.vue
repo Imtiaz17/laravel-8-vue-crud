@@ -60,7 +60,7 @@ export default {
 }
 
 .v-app-bar.v-app-bar--fixed {
-    z-index: 1000;
+    z-index: 9;
     left: 0px !important;
 }
 

@@ -53,7 +53,7 @@ class ProductController extends Controller
             $pro_image = $request->images;
             foreach ($pro_image as $key => $value) {
                 $file=base64_decode($value['path']);
-                $file_name = "pro-".time().".jpg";
+                $file_name = substr(md5(uniqid(rand(1, 6))) . microtime(true), 0, 15) . '.' ."jpg";
                 file_put_contents(public_path().'/uploads/'.$file_name, $file);
                 $product->media()->create([
                     'name' =>  $file_name,
@@ -132,9 +132,16 @@ class ProductController extends Controller
     {
         if($product){
             if(count($product->media)>0) {
-                $product->media()->delete();
-                $path = public_path() . "/uploads/" . $product->media;
-                unlink($path);
+               
+                foreach($product->media as $media)
+                {
+                    $path = public_path() . "/uploads/" . $media->name;
+                    if($path)
+                    {
+                        unlink($path);
+                    }
+                     $product->media()->delete();
+                }
             }
             $product->delete();
             return response('deleted', Response::HTTP_NO_CONTENT);
