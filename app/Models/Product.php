@@ -23,6 +23,6 @@ class Product extends Model
 
     public function media()
     {
-        return $this->morphOne(Media::class, 'model');
+        return $this->morphMany(Media::class, 'model');
     }
 }

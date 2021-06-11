@@ -91,7 +91,7 @@
                                                 <v-icon> mdi-pencil </v-icon>Edit
                                             </v-list-item-title>
                                         </v-list-item>
-                                        <v-list-item link @click="deleteCategory(item)">
+                                        <v-list-item link @click="deleteItem(item)">
                                             <v-list-item-title>
                                                 <v-icon> mdi-delete </v-icon> Delete
                                             </v-list-item-title>

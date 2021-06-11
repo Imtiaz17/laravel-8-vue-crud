@@ -113,15 +113,7 @@ class ProductController extends Controller
         if ($request->has('subcategory_id')) {
             $product->sub_category_id=$request->subcategory_id;
         }
-        // if ($request->file('image')) {
-        //     if ($product->image) {
-        //         $path = public_path() . "/images/" . $product->image;
-        //         unlink($path);
-        //         $this->storeImg($request->image,$product);
-        //     } else {
-        //         $this->storeImg($request->image,$product);
-        //     }
-        // }
+
         $product->save();
 
         return response()->json(["success"=>[
@@ -139,8 +131,9 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if($product){
-            if($product->image) {
-                $path = public_path() . "/images/" . $product->image;
+            if(count($product->media)>0) {
+                $product->media()->delete();
+                $path = public_path() . "/uploads/" . $product->media;
                 unlink($path);
             }
             $product->delete();
